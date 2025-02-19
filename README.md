@@ -41,6 +41,7 @@ npm run dev
 ### Testing API Endpoints
 - Use **Postman** to send requests to `http://localhost:5000/api/`.
 - Ensure you include authentication tokens (if required).
+- For "'admin@example.com', 'admin2@example.com'" have 'admin' roles, other emails have only 'user' roles 
 
 ```sh
 POST /api/auth/register
