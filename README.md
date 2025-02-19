@@ -42,7 +42,7 @@ npm run dev
 - Use **Postman** to send requests to `http://localhost:5000/api/`.
 - Ensure you include authentication tokens (if required).
 
-  ```sh
+```sh
 POST /api/auth/register
 {
   "username": "testuser",
