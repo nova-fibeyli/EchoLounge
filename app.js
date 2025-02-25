@@ -6,27 +6,25 @@ const session = require('express-session');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
+const chatRoutes = require('./routes/chats');
 const errorHandler = require('./middleware/errorHandler');
 const { jwtAuthMiddleware } = require('./middleware/authMiddleware');
 require('./config/passport');
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', jwtAuthMiddleware, postRoutes);
+app.use('/api/chats', jwtAuthMiddleware, chatRoutes);
 
-// Global error handler
 app.use(errorHandler);
 
-// Database connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
