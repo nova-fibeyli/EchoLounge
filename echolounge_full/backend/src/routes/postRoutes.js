@@ -1,8 +1,12 @@
-const { sendMessage, getMessages } = require('../controllers/messageController');
+const express = require('express');
+const { createPost, getPosts, updatePost,deletePost } = require('../controllers/postController');
+const { jwtAuthMiddleware, isAdmin } = require('../middleware/authMiddleware');
 
-const router2 = express.Router();
+const router = express.Router();  // <-- добавляем объявление router
 
-router2.post('/:chatId/messages', jwtAuthMiddleware, sendMessage);
-router2.get('/:chatId/messages', jwtAuthMiddleware, getMessages);
+router.post('/', createPost);
+router.get('/', getPosts);
+router.put('/:id', updatePost);
+router.delete('/:id', jwtAuthMiddleware, isAdmin, deletePost);
 
-module.exports = router2;
+module.exports = router;
