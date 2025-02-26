@@ -74,7 +74,7 @@ API Documentation
 The application exposes a RESTful API with the following endpoints:
 
 Base URL
-http://localhost:3000/api/v1
+http://localhost:5000
 Copy
 Insert
 
@@ -155,3 +155,6 @@ Response:
   "name": "Updated Item",
   "description": "Updated description"
 }
+
+Or just simply use prebuild deployment:
+https://echolounge-6.onrender.com/
