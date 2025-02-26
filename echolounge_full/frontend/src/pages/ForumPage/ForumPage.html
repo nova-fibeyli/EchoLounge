@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum Page</title>
+    <style>
+      body {
+        font-family: "Source Sans Pro", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #eef7f8;
+        display: flex;
+      }
+      .sidebar {
+        width: 300px;
+        height: 100vh;
+        background: #faf7f2;
+        padding: 20px;
+        box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+      }
+      .search-bar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .content {
+        flex: 1;
+        padding: 20px;
+      }
+      .post {
+        background: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+      .buttons {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .buttons button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+      }
+      .delete {
+        background: #ff4d4d;
+        color: white;
+      }
+      .update {
+        background: #4caf50;
+        color: white;
+      }
+      .reply-box {
+        display: none;
+        margin-top: 10px;
+      }
+      .reply-input {
+        width: 100%;
+        padding: 5px;
+      }
+      .forum-list {
+        list-style: none;
+        padding: 0;
+      }
+      .forum-list li {
+        padding: 10px;
+        background: #ddd;
+        margin: 5px 0;
+        cursor: pointer;
+      }
+      .new-post-box {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Forums</h2>
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Search posts..."
+        id="search"
+      />
+      <ul class="forum-list" id="forum-list">
+        <li onclick="loadForum('General')">General</li>
+        <li onclick="loadForum('Tech')">Tech</li>
+      </ul>
+      <button onclick="addForum()">Add Forum</button>
+    </div>
+
+    <div class="content">
+      <h2 id="forum-title">General</h2>
+      <div id="posts"></div>
+      <div class="new-post-box">
+        <input type="text" id="post-input" placeholder="Write a post..." />
+        <button onclick="addPost()">Post</button>
+      </div>
+    </div>
+
+    <script>
+      let currentForum = "General";
+      let posts = [];
+
+      function loadForum(forum) {
+        currentForum = forum;
+        document.getElementById("forum-title").innerText = forum;
+        document.getElementById("posts").innerHTML = "";
+        posts.filter((p) => p.forum === forum).forEach(displayPost);
+      }
+
+      function addPost() {
+        let text = document.getElementById("post-input").value;
+        if (!text) return;
+        let newPost = {
+          id: Date.now(),
+          text,
+          forum: currentForum,
+          author: "You",
+          replies: [],
+        };
+        posts.push(newPost);
+        displayPost(newPost);
+        document.getElementById("post-input").value = "";
+      }
+
+      function displayPost(post) {
+        let postDiv = document.createElement("div");
+        postDiv.className = "post";
+        postDiv.innerHTML = `
+                <p><strong>${post.author}</strong>: ${post.text}</p>
+                <div class="buttons">
+                    <button class="update" onclick="updatePost(${post.id})">Update</button>
+                    <button class="delete" onclick="deletePost(${post.id})">Delete</button>
+                    <button onclick="toggleReply(${post.id})">Reply</button>
+                </div>
+                <div class="reply-box" id="reply-box-${post.id}">
+                    <input type="text" class="reply-input" id="reply-input-${post.id}" placeholder="Write a reply...">
+                    <button onclick="addReply(${post.id})">Reply</button>
+                </div>
+                <div class="replies" id="replies-${post.id}"></div>
+            `;
+        document.getElementById("posts").prepend(postDiv);
+      }
+
+      function deletePost(id) {
+        posts = posts.filter((p) => p.id !== id);
+        document.getElementById("posts").innerHTML = "";
+        posts.filter((p) => p.forum === currentForum).forEach(displayPost);
+      }
+
+      function updatePost(id) {
+        let newText = prompt(
+          "Edit your post:",
+          posts.find((p) => p.id === id).text
+        );
+        if (!newText) return;
+        posts = posts.map((p) => (p.id === id ? { ...p, text: newText } : p));
+        document.getElementById("posts").innerHTML = "";
+        posts.filter((p) => p.forum === currentForum).forEach(displayPost);
+      }
+
+      function toggleReply(id) {
+        let box = document.getElementById(`reply-box-${id}`);
+        box.style.display = box.style.display === "block" ? "none" : "block";
+      }
+
+      function addReply(postId) {
+        let text = document.getElementById(`reply-input-${postId}`).value;
+        if (!text) return;
+        let post = posts.find((p) => p.id === postId);
+        post.replies.push(text);
+        let replyDiv = document.createElement("div");
+        replyDiv.innerText = `You: ${text}`;
+        document.getElementById(`replies-${postId}`).appendChild(replyDiv);
+        document.getElementById(`reply-input-${postId}`).value = "";
+      }
+
+      function addForum() {
+        let name = prompt("Forum name:");
+        if (!name) return;
+        let forumList = document.getElementById("forum-list");
+        let newForum = document.createElement("li");
+        newForum.innerText = name;
+        newForum.onclick = () => loadForum(name);
+        forumList.appendChild(newForum);
+      }
+
+      document.getElementById("search").addEventListener("input", function () {
+        let query = this.value.toLowerCase();
+        document.getElementById("posts").innerHTML = "";
+        posts
+          .filter(
+            (p) =>
+              p.text.toLowerCase().includes(query) && p.forum === currentForum
+          )
+          .forEach(displayPost);
+      });
+    </script>
+  </body>
+</html>
