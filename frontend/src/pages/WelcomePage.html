@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome Page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(0deg, #eef7f8 0%, #eef7f8 100%),
+          radial-gradient(
+            31.25% 19.46% at 13.29% 12.22%,
+            rgba(143, 211, 254, 0) 2%,
+            #8fd3fe 100%
+          );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .Welcomepage {
+        width: 1440px;
+        height: 1024px;
+        position: relative;
+        text-align: center;
+      }
+      .Welcome {
+        font-size: 70px;
+        font-family: Segoe UI;
+        font-weight: 300;
+        position: absolute;
+        left: 80px;
+        top: 290px;
+        color: black;
+      }
+      .IconsOfLoginOrSignup {
+        position: absolute;
+        left: 619px;
+        top: 318px;
+        display: flex;
+        gap: 50px;
+        align-items: center;
+      }
+      .UserButton {
+        width: 105px;
+        height: 105px;
+        background: rgba(245, 245, 245, 0.2);
+        border-radius: 7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .UserButton:hover {
+        transform: scale(1.1);
+      }
+      .UserButton img {
+        width: 98px;
+        height: 98px;
+      }
+      .UserButton span {
+        margin-top: 5px;
+        font-size: 23px;
+        font-family: Kanit;
+        font-weight: 300;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="Welcomepage">
+      <div class="Welcome">Welcome!</div>
+      <div class="IconsOfLoginOrSignup">
+        <div class="UserButton" onclick="window.location.href='LogInPage.html'">
+          <img src="../assets/UserLogInButton.png" alt="Log In" />
+          <span>Log in</span>
+        </div>
+        <div
+          class="UserButton"
+          onclick="window.location.href='SignUpPage.html'"
+        >
+          <img src="../assets/UserSignUpButton.png" alt="Sign Up" />
+          <span>Sign Up</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

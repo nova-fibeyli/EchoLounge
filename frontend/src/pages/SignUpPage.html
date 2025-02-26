@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Page</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap");
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(0deg, #eef7f8 0%, #eef7f8 100%),
+          radial-gradient(
+            31.25% 19.46% at 13.29% 12.22%,
+            rgba(143, 211, 254, 0) 2%,
+            #8fd3fe 100%
+          );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: "Kanit", sans-serif;
+      }
+
+      .signup-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .title {
+        font-size: 50px;
+        font-weight: 300;
+        color: black;
+        margin-bottom: 20px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        font-size: 18px;
+        transition: 0.3s;
+      }
+
+      .input-field:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: 0.3s;
+      }
+
+      .btn-back {
+        background: #ccc;
+      }
+
+      .btn-back:hover {
+        background: #bbb;
+      }
+
+      .btn-signup {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-signup:hover {
+        background: #1d7a32;
+      }
+
+      .google-auth {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .google-auth:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .google-auth img {
+        height: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-container">
+      <div class="title">Sign Up</div>
+      <input type="text" class="input-field" placeholder="Enter username..." />
+      <input type="email" class="input-field" placeholder="Enter email..." />
+      <input
+        type="password"
+        class="input-field"
+        placeholder="Enter password..."
+      />
+      <div class="buttons">
+        <button
+          class="btn btn-back"
+          onclick="window.location.href='WelcomePage.html'"
+        >
+          Back
+        </button>
+
+        <button class="btn btn-signup" onclick="registerUser()">Sign Up</button>
+      </div>
+      <div class="google-auth" onclick="window.location.href='auth/google'">
+        <img src="../assets/Google.png" alt="Google Sign-In" />
+      </div>
+    </div>
+    <script src="signup.js"></script>
+  </body>
+</html>
