@@ -26,8 +26,8 @@ The platform includes a forums page that allows users to share ideas and discuss
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
-   cd yourproject
+https://github.com/nova-fibeyli/EchoLounge.git
+   cd EchoLounge
 Copy
 Insert
 
@@ -57,6 +57,18 @@ Or using yarn:
 yarn start
 Copy
 Insert
+
+This will install the following dependencies:
+bcrypt
+cors
+dotenv
+express
+express-session
+jsonwebtoken
+mongoose
+passport
+passport-google-oauth20
+joi
 
 API Documentation
 The application exposes a RESTful API with the following endpoints:
